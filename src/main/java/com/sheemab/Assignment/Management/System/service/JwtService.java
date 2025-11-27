@@ -3,12 +3,11 @@ package com.sheemab.Assignment.Management.System.service;
 
 
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.Decoders;
+import javax.crypto.SecretKey;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.function.Function;
 
@@ -65,10 +64,17 @@ public class JwtService {
     }
 
     /** Create signing key from Base64 secret */
+//    private SecretKey getSignKey() {
+//        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+//        return Keys.hmacShaKeyFor(keyBytes);
+//    }
+
     private SecretKey getSignKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
-        return Keys.hmacShaKeyFor(keyBytes);
+        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
+
+
+
 }
 
 
