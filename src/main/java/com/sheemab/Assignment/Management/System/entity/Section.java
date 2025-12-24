@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "labs")
+@Table(name = "sections")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Lab {
+public class Section {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +21,15 @@ public class Lab {
 
     @NotBlank
     @Column(nullable = false)
-    private String labName; // Lab-101
+    private String sectionName; // A, B, C
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lab_incharge_id", nullable = false)
-    private User labIncharge;
+    @JoinColumn(name = "semester_id", nullable = false)
+    private Semester semester;
+
+    // Section Mentor (Faculty)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mentor_id", nullable = false)
+    private User mentor;
 }
 

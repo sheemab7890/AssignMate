@@ -17,7 +17,7 @@ public class Role {
 
     // Store the role name as a string (e.g. "ROLE_FACULTY")
     @Enumerated(EnumType.STRING)
-    @Column(unique = true, nullable = false)
+    @Column(name = "name", nullable = false, unique = true, length = 50)
     private RoleName name;
 
 }

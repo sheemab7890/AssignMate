@@ -8,23 +8,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "labs")
+@Table(name = "programs")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Lab {
+public class Program {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Column(nullable = false)
-    private String labName; // Lab-101
+    @NotBlank(message = "Program name is required")
+    @Column(name = "program_name", nullable = false)
+    private String programName; // B.Tech CSE, B.Tech AI
 
+    // ⭐ Program Coordinator
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lab_incharge_id", nullable = false)
-    private User labIncharge;
+    @JoinColumn(name = "coordinator_id", nullable = false)
+    private User coordinator; // must be FACULTY
 }
 

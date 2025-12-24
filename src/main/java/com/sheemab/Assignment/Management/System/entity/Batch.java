@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "labs")
+@Table(name = "batches")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Lab {
+public class Batch {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +21,14 @@ public class Lab {
 
     @NotBlank
     @Column(nullable = false)
-    private String labName; // Lab-101
+    private String batchName; // A1, A2
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lab_incharge_id", nullable = false)
-    private User labIncharge;
+    @JoinColumn(name = "section_id", nullable = false)
+    private Section section;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lab_id", nullable = false)
+    private Lab lab;
 }
 
