@@ -8,11 +8,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "labs")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(
+        name = "labs",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "lab_incharge_id")
+        }
+)
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class Lab {
 
     @Id
@@ -23,8 +26,9 @@ public class Lab {
     @Column(nullable = false)
     private String labName; // Lab-101
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lab_incharge_id", nullable = false)
     private User labIncharge;
 }
+
 

@@ -13,3 +13,4 @@ public class AssignmentManagementSystemApplication {
 }
 
 //http://localhost:8080/swagger-ui/index.html
+// Password is 123456

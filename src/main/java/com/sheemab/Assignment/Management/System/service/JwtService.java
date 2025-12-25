@@ -2,6 +2,7 @@ package com.sheemab.Assignment.Management.System.service;
 
 
 
+import com.sheemab.Assignment.Management.System.entity.User;
 import io.jsonwebtoken.*;
 import javax.crypto.SecretKey;
 import io.jsonwebtoken.security.Keys;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import java.util.Date;
+import java.util.List;
 import java.util.function.Function;
 
 @Service
@@ -21,15 +23,21 @@ public class JwtService {
     private long jwtExpirationMs;   // in milliseconds
 
     /** Generate JWT token */
-    public String generateToken(String username) {
+    public String generateToken(User user) {
+
+        List<String> roles = user.getRoles().stream()
+                .map(role -> role.getName().name()) // ADMIN, FACULTY
+                .toList();
 
         return Jwts.builder()
-                .subject(username)   // = setSubject()
-                .issuedAt(new Date()) // = setIssuedAt()
+                .subject(user.getEmail())                 // identity
+                .claim("roles", roles)                    // 🔥 AUTHORIZATION
+                .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
-                .signWith(getSignKey()) // algorithm auto-detected
+                .signWith(getSignKey())
                 .compact();
     }
+
 
     /** Extract username from token */
     public String extractUsername(String token) {

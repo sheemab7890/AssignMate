@@ -1,5 +1,6 @@
 package com.sheemab.Assignment.Management.System.entity;
 
+import com.sheemab.Assignment.Management.System.enums.RoleName;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,5 +36,10 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
+    public boolean hasRole(RoleName roleName) {
+        return roles != null &&
+                roles.stream()
+                        .anyMatch(role -> role.getName() == roleName);
+    }
 
 }
